@@ -28,89 +28,35 @@
     <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
     <!--EmbedUntrackedSources>true</EmbedUntrackedSources-->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <Configurations>Debug;Release;RelWithDebInfo</Configurations>
   </PropertyGroup>
 
   <!--TODO: this works for single platform only. Need separate packaging scripts for multi-target packaging -->
   <!--TODO: Find a way to bundle the native symbol files properly -->
   <ItemGroup>
-    <None Include="$(OnnxRuntimeCsharpRoot)\..\include\onnxruntime\core\session\onnxruntime_c_api.h"
-          PackagePath="\build\native\include"
-          Pack="true"
-          CopyToOutputDirectory="Never"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\onnxruntime.lib"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Never"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\onnxruntime.dll"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Always"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\onnxruntime.pdb"
-          Condition="Exists('$(NativeBuildOutputDir)\onnxruntime.pdb')"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Always"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\mkldnn.dll"
-          Condition="Exists('$(NativeBuildOutputDir)\mkldnn.dll')"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Always"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\mklml.dll"
-          Condition="Exists('$(NativeBuildOutputDir)\mklml.dll')"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Always"
-          Visible="false"
-    />
-    <None Include="$(NativeBuildOutputDir)\libiomp5md.dll"
-          Condition="Exists('$(NativeBuildOutputDir)\libiomp5md.dll')"
-          PackagePath="\runtimes\win-x64\native"
-          Pack="true"
-          CopyToOutputDirectory="Always"
-          Visible="false"
-    />
-    <None Include="$(OnnxRuntimeCsharpRoot)\..\LICENSE.txt;$(OnnxRuntimeCsharpRoot)\..\ThirdPartyNotices.txt"
-          PackagePath="\"
-          Pack="true"
-          Visible="false"
-    />
-    <None Include="$(OnnxRuntimeCsharpRoot)\..\docs\CSharp_API.md"
-          PackagePath="\README.md"
-          Pack="true"
-          Visible="false"
-    />
-    <None Include="$(PackageId).targets" 
-          PackagePath="\build\$(TargetFramework);\build\native"
-          Pack="true"
-          Visible="false"
-    />
-    <None Include="$(PackageId).props"
-          PackagePath="\build\$(TargetFramework);\build\native"
-          Pack="true"
-          Visible="false"
-    />
+    <None Include="$(OnnxRuntimeCsharpRoot)\..\include\onnxruntime\core\session\onnxruntime_c_api.h" PackagePath="\build\native\include" Pack="true" CopyToOutputDirectory="Never" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\onnxruntime.lib" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Never" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\onnxruntime.dll" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Always" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\onnxruntime.pdb" Condition="Exists('$(NativeBuildOutputDir)\onnxruntime.pdb')" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Always" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\mkldnn.dll" Condition="Exists('$(NativeBuildOutputDir)\mkldnn.dll')" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Always" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\mklml.dll" Condition="Exists('$(NativeBuildOutputDir)\mklml.dll')" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Always" Visible="false" />
+    <None Include="$(NativeBuildOutputDir)\libiomp5md.dll" Condition="Exists('$(NativeBuildOutputDir)\libiomp5md.dll')" PackagePath="\runtimes\win-x64\native" Pack="true" CopyToOutputDirectory="Always" Visible="false" />
+    <None Include="$(OnnxRuntimeCsharpRoot)\..\LICENSE.txt;$(OnnxRuntimeCsharpRoot)\..\ThirdPartyNotices.txt" PackagePath="\" Pack="true" Visible="false" />
+    <None Include="$(OnnxRuntimeCsharpRoot)\..\docs\CSharp_API.md" PackagePath="\README.md" Pack="true" Visible="false" />
+    <None Include="$(PackageId).targets" PackagePath="\build\$(TargetFramework);\build\native" Pack="true" Visible="false" />
+    <None Include="$(PackageId).props" PackagePath="\build\$(TargetFramework);\build\native" Pack="true" Visible="false" />
 
   </ItemGroup>
 
   <ItemGroup>
-    <LicenseFile Include="$(OnnxRuntimeCsharpRoot)\..\LICENSE"/>
-    <PropertiesFile Include="$(OnnxRuntimeCsharpRoot)\src\Microsoft.ML.OnnxRuntime\props.xml"/>
-    <TargetsFile Include="$(OnnxRuntimeCsharpRoot)\src\Microsoft.ML.OnnxRuntime\targets.xml"/>
+    <LicenseFile Include="$(OnnxRuntimeCsharpRoot)\..\LICENSE" />
+    <PropertiesFile Include="$(OnnxRuntimeCsharpRoot)\src\Microsoft.ML.OnnxRuntime\props.xml" />
+    <TargetsFile Include="$(OnnxRuntimeCsharpRoot)\src\Microsoft.ML.OnnxRuntime\targets.xml" />
   </ItemGroup>
 
   <Target Name="ObtainPackageVersion" BeforeTargets="Build;Pack">
     <ReadLinesFromFile File="$(OnnxRuntimeCsharpRoot)\..\VERSION_NUMBER">
-      <Output TaskParameter="Lines" ItemName="MajorVersionNumber"/>
+      <Output TaskParameter="Lines" ItemName="MajorVersionNumber" />
     </ReadLinesFromFile>
     <Exec Command="git rev-parse --short HEAD" ConsoleToMSBuild="true">
         <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitHashShort" />
@@ -122,14 +68,14 @@
       <PackageVersion Condition="'$(IsReleaseBuild)'!='true'">$(PackageVersion)-dev-$(GitCommitHashShort)</PackageVersion>
     </PropertyGroup>
     <Message Importance="High" Text="PackageVersion=$(PackageVersion)" />
-    <Copy SourceFiles="@(LicenseFile)" DestinationFiles="@(LicenseFile->'$(OnnxRuntimeCsharpRoot)\..\%(Filename).txt')"/>
-    <Copy SourceFiles="@(PropertiesFile)" DestinationFiles="@(PropertiesFile->'$(OnnxRuntimeCsharpRoot)\src\\Microsoft.ML.OnnxRuntime\$(PackageId).props')"/>
-    <Copy SourceFiles="@(TargetsFile)" DestinationFiles="@(TargetsFile->'$(OnnxRuntimeCsharpRoot)\src\\Microsoft.ML.OnnxRuntime\$(PackageId).targets')"/>
+    <Copy SourceFiles="@(LicenseFile)" DestinationFiles="@(LicenseFile->'$(OnnxRuntimeCsharpRoot)\..\%(Filename).txt')" />
+    <Copy SourceFiles="@(PropertiesFile)" DestinationFiles="@(PropertiesFile->'$(OnnxRuntimeCsharpRoot)\src\\Microsoft.ML.OnnxRuntime\$(PackageId).props')" />
+    <Copy SourceFiles="@(TargetsFile)" DestinationFiles="@(TargetsFile->'$(OnnxRuntimeCsharpRoot)\src\\Microsoft.ML.OnnxRuntime\$(PackageId).targets')" />
   </Target>
 
   <ItemGroup>
     <PackageReference Include="System.Numerics.Tensors" Version="0.1.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

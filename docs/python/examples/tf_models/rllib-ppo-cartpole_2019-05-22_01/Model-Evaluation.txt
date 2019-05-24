@@ -1,0 +1,23 @@
+Evaluating model from framework:onnx trained with algo:PPO
+Episode 1 finished after 66 timesteps with reward 66.0.  Position:0.6229943878960823 Angle:0.2104523042114697
+Episode 2 finished after 64 timesteps with reward 64.0.  Position:0.5558056419897505 Angle:0.21022528004938038
+Episode 3 finished after 58 timesteps with reward 58.0.  Position:0.5001117783058575 Angle:0.21505435748415228
+Episode 4 finished after 82 timesteps with reward 82.0.  Position:0.9422123053505553 Angle:0.21454855203180284
+Episode 5 finished after 90 timesteps with reward 90.0.  Position:0.4287884641018499 Angle:0.21053286284709521
+Episode 6 finished after 72 timesteps with reward 72.0.  Position:0.9271599265051715 Angle:0.21084526834803105
+Episode 7 finished after 66 timesteps with reward 66.0.  Position:0.6525043202355991 Angle:0.21359851970382282
+Episode 8 finished after 65 timesteps with reward 65.0.  Position:0.4015518395139012 Angle:0.21079820413455352
+Episode 9 finished after 74 timesteps with reward 74.0.  Position:0.8968027594801485 Angle:0.2098453845529722
+Episode 10 finished after 60 timesteps with reward 60.0.  Position:0.5708651831610176 Angle:0.20945307955253673
+
+Evaluating model from framework:tf trained with algo:PPO
+Episode 1 finished after 200 timesteps with reward 200.0.  Position:0.7657057983865754 Angle:-0.07491385224573863
+Episode 2 finished after 200 timesteps with reward 200.0.  Position:1.4603434230055652 Angle:-0.12346034555408199
+Episode 3 finished after 177 timesteps with reward 177.0.  Position:-2.1217809374216112 Angle:0.2097605843175001
+Episode 4 finished after 200 timesteps with reward 200.0.  Position:0.48462671000001645 Angle:-0.04608717636080673
+Episode 5 finished after 200 timesteps with reward 200.0.  Position:-1.2772305767489132 Angle:0.10625084978874635
+Episode 6 finished after 200 timesteps with reward 200.0.  Position:-0.7961211422727006 Angle:-0.005984204914219561
+Episode 7 finished after 200 timesteps with reward 200.0.  Position:-0.006139885252792572 Angle:0.011413444111962316
+Episode 8 finished after 200 timesteps with reward 200.0.  Position:-0.12354089666280388 Angle:0.036248695701652386
+Episode 9 finished after 190 timesteps with reward 190.0.  Position:0.27465251909961375 Angle:-0.21771125941027203
+Episode 10 finished after 200 timesteps with reward 200.0.  Position:-0.8454409668421178 Angle:-0.05301676388254447
