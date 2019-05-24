@@ -1,0 +1,12 @@
+input name default/obs_input:0
+input shape [None, 4]
+input type tensor(float)
+output name default/Squeeze:0
+output shape [None]
+output type tensor(int64)
+output name default/fc_net/fc_out/BiasAdd:0
+output shape [None, 2]
+output type tensor(float)
+output name default/value_function/Reshape:0
+output shape [None]
+output type tensor(float)

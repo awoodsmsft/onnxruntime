@@ -1,0 +1,7 @@
+{
+  "env_config": {
+    "adrian": "ogrady",
+    "agent_name": "DQN",
+    "history_length": 4
+  }
+}
