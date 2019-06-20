@@ -1,0 +1,2 @@
+input: import/default/obs_input:0
+output: import/default/Squeeze:0

@@ -1,0 +1,47 @@
+awoods@awoods-dev08:~/src-windows/onnxruntime-awoods/docs/python/examples/tf_models/rllib-ppo-cartpole_2019-06-18_01$ python -m tf2onnx.convert --saved-model export_model --verbose --opset 8  --output rllib-ppo-cartpole_2019-06-08_01.onnx
+WARNING:tensorflow:From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tf2onnx-1.5.0-py3.6.egg/tf2onnx/loader.py:103: load (from tensorflow.python.saved_model.loader_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.loader.load or tf.compat.v1.saved_model.load. There will be a new function for importing SavedModels in Tensorflow 2.0.
+2019-06-19 14:05:58,180 - WARNING - tensorflow: From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tf2onnx-1.5.0-py3.6.egg/tf2onnx/loader.py:103: load (from tensorflow.python.saved_model.loader_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.loader.load or tf.compat.v1.saved_model.load. There will be a new function for importing SavedModels in Tensorflow 2.0.
+WARNING:tensorflow:From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tensorflow/python/training/saver.py:1266: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2019-06-19 14:05:58,948 - WARNING - tensorflow: From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tensorflow/python/training/saver.py:1266: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+WARNING:tensorflow:From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tf2onnx-1.5.0-py3.6.egg/tf2onnx/loader.py:37: convert_variables_to_constants (from tensorflow.python.framework.graph_util_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.compat.v1.graph_util.convert_variables_to_constants
+2019-06-19 14:05:59,275 - WARNING - tensorflow: From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tf2onnx-1.5.0-py3.6.egg/tf2onnx/loader.py:37: convert_variables_to_constants (from tensorflow.python.framework.graph_util_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.compat.v1.graph_util.convert_variables_to_constants
+WARNING:tensorflow:From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tensorflow/python/framework/graph_util_impl.py:245: extract_sub_graph (from tensorflow.python.framework.graph_util_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.compat.v1.graph_util.extract_sub_graph
+2019-06-19 14:05:59,275 - WARNING - tensorflow: From /home/awoods/python-envs/athens02-env/lib/python3.6/site-packages/tensorflow/python/framework/graph_util_impl.py:245: extract_sub_graph (from tensorflow.python.framework.graph_util_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.compat.v1.graph_util.extract_sub_graph
+2019-06-19 14:05:59,453 - WARNING - tf2onnx.loader: inputs [default/PlaceholderWithDefault:0,default/prev_reward:0,default/action_1:0,default/seq_lens:0] is not in frozen graph, delete them
+2019-06-19 14:05:59,520 - INFO - tf2onnx.tfonnx: Using tensorflow=1.13.1, onnx=1.4.1, tf2onnx=1.5.0/9713ff
+2019-06-19 14:05:59,520 - INFO - tf2onnx.tfonnx: Using opset <onnx, 8>
+2019-06-19 14:05:59,545 - VERBOSE - tf2onnx.tfonnx: Summay Stats:
+        tensorflow ops: Counter({'Const': 14, 'Identity': 12, 'MatMul': 6, 'BiasAdd': 6, 'Tanh': 4, 'Placeholder': 1, 'Multinomial': 1, 'Squeeze': 1, 'Reshape': 1})
+        tensorflow attr: Counter({'T': 31, 'dtype': 15, 'value': 14, '_class': 12, 'transpose_a': 6, 'transpose_b': 6, 'data_format': 6, 'shape': 1, 'seed': 1, 'output_dtype': 1, 'seed2': 1, 'squeeze_dims': 1, 'Tshape': 1})
+        onnx mapped: Counter({'Const': 14, 'Identity': 12, 'MatMul': 6, 'BiasAdd': 6, 'Tanh': 4, 'Placeholder': 1, 'Multinomial': 1, 'Squeeze': 1, 'Reshape': 1})
+        onnx unmapped: Counter()
+2019-06-19 14:05:59,549 - INFO - tf2onnx:
+2019-06-19 14:05:59,553 - INFO - tf2onnx.optimizer: Optimizing ONNX model
+2019-06-19 14:05:59,553 - VERBOSE - tf2onnx.optimizer: Apply optimize_transpose
+2019-06-19 14:05:59,559 - VERBOSE - tf2onnx.optimizer.TransposeOptimizer: no change
+2019-06-19 14:05:59,559 - VERBOSE - tf2onnx.optimizer: Apply fold_constants
+2019-06-19 14:05:59,563 - VERBOSE - tf2onnx.optimizer.ConstFoldOptimizer: no change
+2019-06-19 14:05:59,563 - VERBOSE - tf2onnx.optimizer: Apply merge_duplication
+2019-06-19 14:05:59,567 - VERBOSE - tf2onnx.optimizer.MergeDuplicatedNodesOptimizer: no change
+2019-06-19 14:05:59,567 - VERBOSE - tf2onnx.optimizer: Apply remove_identity
+2019-06-19 14:05:59,570 - VERBOSE - tf2onnx.optimizer.IdentityOptimizer: Identity -6 (6->0)
+2019-06-19 14:05:59,570 - INFO - tf2onnx.optimizer: After optimization: Identity -6 (6->0)
+2019-06-19 14:05:59,573 - INFO - tf2onnx:
+2019-06-19 14:05:59,573 - INFO - tf2onnx: Successfully converted TensorFlow model export_model to ONNX
+2019-06-19 14:05:59,593 - INFO - tf2onnx: ONNX model is saved at rllib-ppo-cartpole_2019-06-08_01.onnx

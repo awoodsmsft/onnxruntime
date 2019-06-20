@@ -1,0 +1,3 @@
+2019-06-17 18:58:44,597 INFO multi_gpu_optimizer.py:74 -- LocalMultiGPUOptimizer devices ['/cpu:0']
+Episode reward 200.0
+Terminated

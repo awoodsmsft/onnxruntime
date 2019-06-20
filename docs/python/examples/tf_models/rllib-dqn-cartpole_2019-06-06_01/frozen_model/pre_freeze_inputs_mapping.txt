@@ -1,0 +1,23 @@
+{'default/stochastic:0': name: "default/stochastic:0"
+dtype: DT_BOOL
+tensor_shape {
+}
+, 'observations': name: "default/obs_input:0"
+dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: -1
+  }
+  dim {
+    size: 4
+  }
+}
+, 'is_training': name: "default/q_func/PlaceholderWithDefault:0"
+dtype: DT_BOOL
+tensor_shape {
+}
+, 'default/eps:0': name: "default/eps:0"
+dtype: DT_FLOAT
+tensor_shape {
+}
+}

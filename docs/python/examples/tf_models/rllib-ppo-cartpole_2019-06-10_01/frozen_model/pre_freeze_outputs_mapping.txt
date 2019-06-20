@@ -1,0 +1,25 @@
+{'vf_preds': name: "default/value_function/Reshape:0"
+dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+, 'logits': name: "default/fc_net/fc_out/BiasAdd:0"
+dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: -1
+  }
+  dim {
+    size: 2
+  }
+}
+, 'actions': name: "default/Squeeze:0"
+dtype: DT_INT64
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+}
