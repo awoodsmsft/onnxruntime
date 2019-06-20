@@ -4,6 +4,8 @@ import onnxruntime as rt
 import numpy
 import gym
 import _pickle as pickle
+import tensorflow as tf
+from tensorflow.python.client import session
 from onnxruntime.datasets import get_example
 
 base_path = os.path.abspath(os.path.dirname(__file__))
@@ -30,7 +32,7 @@ def get_onnx_session(model_path):
     return sess
 
 def get_tf_session(model_path):
-    import tensorflow as tf
+    # import tensorflow as tf
     signature_key = tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY
     g = tf.Graph()
     # with g.as_default():
@@ -43,6 +45,37 @@ def get_tf_session(model_path):
     print("Signature Def Information:")
     print(meta_graph_def.signature_def[signature_key])
     return sess    
+
+frozen_session_input = None
+frozen_session_output = None
+def get_tf_frozen_session(model_path, algo):
+    # load the protobuf file, parse it to retrieve the unserialized graph_def
+    frozen_graph_filename = os.path.join(model_path,"saved_model.pb")
+    with tf.gfile.GFile(frozen_graph_filename, "rb") as f:
+        graph_def = tf.GraphDef()
+        graph_def.ParseFromString(f.read())
+    
+    # import the graph_def into a new Graph and return it 
+    with tf.Graph().as_default() as graph:
+        tf.import_graph_def(graph_def)
+
+    for op in graph.get_operations():
+            print(op.name)
+            # prefix/Placeholder/inputs_placeholder
+            # ...
+            # prefix/Accuracy/predictions    return graph
+
+    # We access the input and output nodes 
+    global frozen_session_input, frozen_session_output
+    if algo == "DQN":
+        frozen_session_input = graph.get_tensor_by_name('import/default/obs_input:0')
+        frozen_session_output = graph.get_tensor_by_name('import/default/cond/Merge:0')
+    elif algo == "PPO":
+        frozen_session_input = graph.get_tensor_by_name('import/default/obs_input:0')
+        frozen_session_output = graph.get_tensor_by_name('import/default/Squeeze:0')
+
+    sess = tf.Session(graph=graph)
+    return sess
 
 def onnx_session_evaluator(session, local_obs, algo):
     if algo=="DQN":
@@ -76,6 +109,21 @@ def tf_session_evaluator(session, local_obs, algo):
     inf_result = session.run(output_key, feed_dict=feed_dict)
     return inf_result[0]
 
+def tf_frozen_session_evaluator(session, local_obs, algo):
+    if algo == "DQN":
+        feed_dict = {frozen_session_input: local_obs,
+                #    "default/eps:0": float(0.020000000000000018),
+                   "import/default/eps:0": float(0.0),
+                #    "import/default/q_func/PlaceholderWithDefault:0": False,
+                   "import/default/stochastic:0": False
+        }
+        inf_result = session.run(frozen_session_output, feed_dict=feed_dict)
+    elif algo == "PPO":
+        inf_result = session.run(frozen_session_output, feed_dict={frozen_session_input: local_obs})
+
+    return inf_result[0]
+
+
 def evaluate_model(onnx_session, tf_session, episode_count, onnx_session_evaluator, tf_session_evaluator, algo, use_onnx = True, render_env = False):
     # x = numpy.random.random((3,4,5))
     # x = x.astype(numpy.float32)
@@ -105,6 +153,8 @@ def evaluate_model(onnx_session, tf_session, episode_count, onnx_session_evaluat
             # random_action = env.action_space.sample()
 
             local_action = onnx_action if use_onnx else tf_action
+            local_output = [local_obs[0][0], local_obs[0][1], local_obs[0][2], local_obs[0][3], local_action]
+            # print (",".join(str(value) for value in local_output))
             observation, reward, done, info = env.step(local_action)
             reward_total += reward
             position = observation[0]
@@ -136,27 +186,34 @@ def compare_model(model_path, tf_session, tf_session_evaluator, baseline_path):
     print("Finished model comparison to baseline")
 
 
+
 if __name__ == "__main__":
-    import ptvsd
-    ptvsd.enable_attach()
-    print("Waiting for debugger to attach")
-    ptvsd.wait_for_attach() # (Optional) This blocks until a debugger has attached
+    # import ptvsd
+    # ptvsd.enable_attach()
+    # print("Waiting for debugger to attach")
+    # ptvsd.wait_for_attach() # (Optional) This blocks until a debugger has attached
 
     # onnx_model_path = "C:\\Src\\onnxruntime\\csharp\\sample\\Microsoft.ML.OnnxRuntime.InferenceSample\\rllib-models\\rllib-ppo-cartpole.onnx"
     # onnx_model_path = os.path.join(base_path, "onnx_models", "rllib-ppo-cartpole.onnx")
-    onnx_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-05-22_01", "rllib-cartpole_2019-05-22_01.onnx")
+    test_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
+    path_exists = os.path.exists(test_path)
+    onnx_model_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
     onnx_session = get_onnx_session(onnx_model_path)
+    # onnx_session = None
 
     # tf_model_path = "C:\\Src\\athens02\\tests\\unit_tests\\assets\\rllib\\rllib-ppo-cartpole_2019-04-10_16-32"
-    # tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-04-10_16-32")
-    tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-05-22_02", "export_dir")
-    tf_session = get_tf_session(tf_model_path)
+    # tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-06-10_01", "export_model")
+    tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-06-18_01", "frozen_model")
+    # tf_session = get_tf_session(tf_model_path)
+    tf_session = get_tf_frozen_session(tf_model_path, "PPO")
 
-    baseline_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-05-01_00-31", "rllib-rollout-200steps.pkl")
+    # baseline_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-05-01_00-31", "rllib-rollout-200steps.pkl")
     # compare_model(tf_model_path, tf_session, tf_session_evaluator, baseline_path)
     # exit(0)
 
     # evaluate_model(onnx_session, 10, onnx_session_evaluator)
     # evaluate_model(onnx_session, tf_session, 10, onnx_session_evaluator, tf_session_evaluator, True)
-    evaluate_model(onnx_session, tf_session, 10, onnx_session_evaluator, tf_session_evaluator, "PPO", use_onnx=False, render_env=False)
+    tf_evaluator = tf_frozen_session_evaluator
+    # tf_evaluator = tf_session_evaluator
+    evaluate_model(onnx_session, tf_session, 10, onnx_session_evaluator, tf_evaluator, "DQN", use_onnx=True, render_env=False)
     tf_session.close()

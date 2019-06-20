@@ -1,0 +1,6 @@
+{
+  "num_sgd_iter": 5,
+  "num_workers": 2,
+  "observation_filter": "NoFilter",
+  "train_batch_size": 1000
+}

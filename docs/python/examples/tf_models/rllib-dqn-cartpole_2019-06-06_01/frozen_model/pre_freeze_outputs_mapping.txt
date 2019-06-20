@@ -1,0 +1,8 @@
+{'actions': name: "default/cond/Merge:0"
+dtype: DT_INT64
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+}
