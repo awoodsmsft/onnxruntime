@@ -1,0 +1,36 @@
+{'prev_reward': name: "default/prev_reward:0"
+dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+, 'observations': name: "default/obs_input:0"
+dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: -1
+  }
+  dim {
+    size: 4
+  }
+}
+, 'is_training': name: "default/PlaceholderWithDefault:0"
+dtype: DT_BOOL
+tensor_shape {
+}
+, 'seq_lens': name: "default/seq_lens:0"
+dtype: DT_INT32
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+, 'prev_action': name: "default/action_1:0"
+dtype: DT_INT64
+tensor_shape {
+  dim {
+    size: -1
+  }
+}
+}
