@@ -195,17 +195,18 @@ if __name__ == "__main__":
 
     # onnx_model_path = "C:\\Src\\onnxruntime\\csharp\\sample\\Microsoft.ML.OnnxRuntime.InferenceSample\\rllib-models\\rllib-ppo-cartpole.onnx"
     # onnx_model_path = os.path.join(base_path, "onnx_models", "rllib-ppo-cartpole.onnx")
-    test_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
-    path_exists = os.path.exists(test_path)
-    onnx_model_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
-    onnx_session = get_onnx_session(onnx_model_path)
-    # onnx_session = None
+    # test_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
+    # path_exists = os.path.exists(test_path)
+    # onnx_model_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-06-06_01", "onnx_model", "rllib-dqn-cartpole_2019-06-06_01.onnx")
+    # onnx_session = get_onnx_session(onnx_model_path)
+    onnx_session = None
 
     # tf_model_path = "C:\\Src\\athens02\\tests\\unit_tests\\assets\\rllib\\rllib-ppo-cartpole_2019-04-10_16-32"
     # tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-06-10_01", "export_model")
-    tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-06-18_01", "frozen_model")
-    # tf_session = get_tf_session(tf_model_path)
-    tf_session = get_tf_frozen_session(tf_model_path, "PPO")
+    tf_model_path = os.path.join(base_path, "tf_models", "IMPALA_olympus_0_2019-06-20_17-35-38", "checkpoint_220", "tf_model")
+    # tf_model_path = os.path.join(base_path, "tf_models", "rllib-ppo-cartpole_2019-06-18_01", "frozen_model")
+    tf_session = get_tf_session(tf_model_path)
+    # tf_session = get_tf_frozen_session(tf_model_path, "PPO")
 
     # baseline_path = os.path.join(base_path, "tf_models", "rllib-dqn-cartpole_2019-05-01_00-31", "rllib-rollout-200steps.pkl")
     # compare_model(tf_model_path, tf_session, tf_session_evaluator, baseline_path)
